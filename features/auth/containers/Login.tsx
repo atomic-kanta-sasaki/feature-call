@@ -6,7 +6,6 @@ import { LoginForm } from '../components/LoginForm';
 export const Login = () => {
   const [{ email, password }, { handleChangeEmail, handleChangePassword, handleSubmit }] = useLoginForm();
 
-
   return (
     <LoginForm
       email={email}

@@ -1,5 +1,6 @@
 'use client';
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useAuthApi } from '../hooks/useAuthApi';
 
 export type LoginFormState = {
   email: string;
@@ -16,6 +17,7 @@ export type LoginFormActions = {
 export const useLoginForm = (): [LoginFormState, LoginFormActions] => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { postLogin } = useAuthApi();
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -25,9 +27,9 @@ export const useLoginForm = (): [LoginFormState, LoginFormActions] => {
     setPassword(e.target.value)
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(email, password)
+    await postLogin(email, password)
   }
 
   return [
