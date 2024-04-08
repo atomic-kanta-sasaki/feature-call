@@ -9,6 +9,7 @@ type Props = {
 
 export type AuthApiActions = {
   postLogin: (email: string, password: string) => Promise<void>;
+  postSignUp: (email: string, password: string) => Promise<void>;
 }
 
 export const useAuthApi = (): AuthApiActions => {
@@ -18,7 +19,12 @@ export const useAuthApi = (): AuthApiActions => {
     await authStore.login({ email, password });
   };
 
+  const postSignUp = async (email: string, password: string) => {
+    await authStore.signUp({ email, password });
+  };
+
   return {
     postLogin,
+    postSignUp
   };
 };

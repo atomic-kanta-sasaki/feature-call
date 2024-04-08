@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { useSignUpForm } from '../hooks/useSignUpForm';
 
 type Props = {
   activeStep: number;
   handleNext: () => void;
   handleBack: () => void;
   handleReset: () => void;
+  isStepOptional: (step: number) => boolean;
+  handleSkip: () => void;
+  onSubmit: (e: FormEvent) => void;
   handleStepContent: (step: number) => React.ReactNode;
 };
 
-export const StepContent = ({ activeStep, handleNext, handleBack, handleReset, handleStepContent }: Props) => {
-  const [{ skipped }, { isStepOptional, isStepSkipped, handleSkip }] = useSignUpForm();
+export const StepContent = ({ activeStep, isStepOptional, handleSkip, handleNext, handleBack, handleReset, handleStepContent, onSubmit }: Props) => {
   const steps = ['Step 1', 'Step 2', 'Step 3'];
 
   return (
@@ -44,7 +45,7 @@ export const StepContent = ({ activeStep, handleNext, handleBack, handleReset, h
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
+            <Button onClick={activeStep === steps.length - 1 ? onSubmit : handleNext}>
               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
             </Button>
           </Box>

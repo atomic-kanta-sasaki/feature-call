@@ -9,11 +9,21 @@ type Props = {
 export class AuthStore {
   login = async ({ email, password }: Props) => {
     const url = "http://localhost:3000/api/auth/login";
-    const body = {
+    const payload = {
       email: email,
-      passowrd: password
+      password: password
     };
-    const response = await axios.post(url, body);
+    const response = await axios.post(url, payload);
+    console.log(response.data);
+  }
+
+  signUp = async ({ email, password }: Props) => {
+    const url = "http://localhost:3000/api/auth/signup";
+    const payload = {
+      email: email,
+      password: password
+    };
+    const response = await axios.post(url, payload);
     console.log(response.data);
   }
 }

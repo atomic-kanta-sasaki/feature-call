@@ -1,6 +1,7 @@
 'use client'
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import TextField from '@mui/material/TextField';
+import { useAuthApi } from '../hooks/useAuthApi';
 
 type SignUpActiveForm = {
   isStepOptional: (step: number) => boolean;
@@ -9,6 +10,7 @@ type SignUpActiveForm = {
   handleBack: () => void;
   handleSkip: () => void;
   handleReset: () => void;
+  handleSubmit: (e: FormEvent) => void;
   handleStepContent: (step: number) => React.ReactNode;
 }
 
@@ -23,6 +25,7 @@ export const useSignUpForm = (): [SignUpFormState, SignUpActiveForm] => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [skipped, setSkipped] = useState(new Set<number>());
+  const { postSignUp } = useAuthApi();
 
   const isStepOptional = (step: number) => {
     return step === 1;
@@ -126,6 +129,11 @@ export const useSignUpForm = (): [SignUpFormState, SignUpActiveForm] => {
     }
   };
 
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await postSignUp(email, password)
+  }
+
   return [
     {
       activeStep,
@@ -138,7 +146,8 @@ export const useSignUpForm = (): [SignUpFormState, SignUpActiveForm] => {
       handleBack,
       handleSkip,
       handleReset,
-      handleStepContent
+      handleSubmit,
+      handleStepContent,
     }
   ]
 }

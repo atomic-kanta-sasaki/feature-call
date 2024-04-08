@@ -22,6 +22,7 @@ export const SignUpForm = () => {
       handleBack,
       handleSkip,
       handleReset,
+      handleSubmit,
       handleStepContent,
     }
   ] = useSignUpForm();
@@ -39,6 +40,9 @@ export const SignUpForm = () => {
         handleNext={handleNext}
         handleBack={handleBack}
         handleReset={handleReset}
+        isStepOptional={isStepOptional}
+        handleSkip={handleSkip}
+        onSubmit={handleSubmit}
         handleStepContent={handleStepContent}
       />
     </Box>
