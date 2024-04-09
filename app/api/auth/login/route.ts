@@ -1,11 +1,13 @@
+import { PrismaClientManager } from "@/server/src/infrastructure/prisma/PrismaClientManager";
+import { UserRepository } from "@/server/src/infrastructure/repository/users/UserRepository";
+import { LoginUser } from "@/server/src/usecase/users/LoginUser";
 import { NextRequest, NextResponse } from "next/server";
-
-export const GET = (request: NextRequest) => {
-  return NextResponse.json('hello worldsss');
-}
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json()
-  console.log(body)
-  return NextResponse.json('post ok');
+  const clientManager = new PrismaClientManager()
+  const userRepository = new UserRepository(clientManager)
+  const loginUser = new LoginUser(userRepository);
+  const token = await loginUser.call(body)
+  return NextResponse.json(token);
 }

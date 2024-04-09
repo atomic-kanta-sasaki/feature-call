@@ -1,6 +1,5 @@
 import { ITransactionManager } from "../../application/shared/ITransactionManager";
 import { User } from "../../domain/models/users/User";
-import { UserId } from "../../domain/models/users/ValueObject/Id";
 import { PasswordHash } from "../../domain/models/users/ValueObject/Password";
 import { UserDuplicationCheckDomainService } from "../../domain/service/users/UserDuplicationCheckDomainService";
 import { IUserRepository } from "../../interface/users/IUserRepository";

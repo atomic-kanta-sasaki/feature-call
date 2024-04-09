@@ -14,7 +14,6 @@ export class AuthStore {
       password: password
     };
     const response = await axios.post(url, payload);
-    console.log(response.data);
   }
 
   signUp = async ({ email, password }: Props) => {
@@ -24,6 +23,5 @@ export class AuthStore {
       password: password
     };
     const response = await axios.post(url, payload);
-    console.log(response.data);
   }
 }
