@@ -1,5 +1,7 @@
 import { ValueObject } from '../../shared/ValueObject';
 import { nanoid } from 'nanoid';
+import { CustomError } from '../../../../shared/CustomError';
+import { StatusCodeEnum } from '../../../../shared/StatusCode';
 
 type Id = string;
 export class UserId extends ValueObject<Id, 'Id'> {
@@ -15,8 +17,8 @@ export class UserId extends ValueObject<Id, 'Id'> {
       value.length < UserId.MIN_LENGTH ||
       value.length > UserId.MAX_LENGTH
     ) {
-      throw new Error(
-        `Idは${UserId.MIN_LENGTH}文字以上、${UserId.MAX_LENGTH}文字以下でなければなりません。`
+      throw new CustomError(
+        `Idは${UserId.MIN_LENGTH}文字以上、${UserId.MAX_LENGTH}文字以下でなければなりません。`, StatusCodeEnum.BAD_REQUEST
       );
     }
   }

@@ -3,6 +3,9 @@ import { User } from "../../domain/models/users/User";
 import { PasswordHash } from "../../domain/models/users/ValueObject/Password";
 import { UserDuplicationCheckDomainService } from "../../domain/service/users/UserDuplicationCheckDomainService";
 import { IUserRepository } from "../../interface/users/IUserRepository";
+import { CustomError } from "../../shared/CustomError";
+import { StatusCodeEnum } from "../../shared/StatusCode";
+
 
 export type UserCreateRequest = {
   email: string;
@@ -20,7 +23,7 @@ export class CreateUser {
       const isDuplicateId = await new UserDuplicationCheckDomainService(this.userRepository).execute(request.email)
 
       if (isDuplicateId) {
-        throw new Error("すでに登録されています。");
+        throw new CustomError("メールアドレスはすでに使用されています", StatusCodeEnum.BAD_REQUEST);
       }
       const hashedPassword = await new PasswordHash(request.password).hashPassword();
 

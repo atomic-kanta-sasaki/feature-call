@@ -1,4 +1,6 @@
 import { ValueObject } from '../../shared/ValueObject';
+import { CustomError } from '../../../../shared/CustomError';
+import { StatusCodeEnum } from '../../../../shared/StatusCode';
 
 export enum StatusEnum {
   Active = 'Active',
@@ -14,7 +16,7 @@ export class Status extends ValueObject<StatusValue, 'Status'> {
 
   protected validate(value: StatusValue): void {
     if (!Object.values(StatusEnum).includes(value)) {
-      throw new Error('無効なステータスです。');
+      throw new CustomError('無効なステータスです。', StatusCodeEnum.BAD_REQUEST);
     }
   }
 

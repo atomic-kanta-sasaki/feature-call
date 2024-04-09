@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import { ValueObject } from '../../shared/ValueObject';
+import { CustomError } from '../../../../shared/CustomError';
+import { StatusCodeEnum } from '../../../../shared/StatusCode';
 
 type Password = string;
 
@@ -12,8 +14,8 @@ export class PasswordHash extends ValueObject<Password, 'Password'> {
 
   protected validate(value: Password): void {
     if (value.length < PasswordHash.MIN_LENGTH) {
-      throw new Error(
-        `Passwordは${PasswordHash.MIN_LENGTH}文字以上でなければなりません。`
+      throw new CustomError(
+        `Passwordは${PasswordHash.MIN_LENGTH}文字以上でなければなりません。`, StatusCodeEnum.BAD_REQUEST
       );
     }
   }

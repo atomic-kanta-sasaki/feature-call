@@ -3,6 +3,8 @@ import { PrismaTransactionManager } from "@/server/src/infrastructure/prisma/Pri
 import { UserRepository } from "@/server/src/infrastructure/repository/users/UserRepository";
 import { CreateUser, UserCreateRequest } from "@/server/src/usecase/users/CreateUser";
 import { NextRequest, NextResponse } from "next/server";
+import { CustomError } from "@/server/src/shared/CustomError";
+import { StatusCodeEnum } from "@/server/src/shared/StatusCode";
 
 export const POST = async (request: NextRequest) => {
   try {
@@ -11,11 +13,14 @@ export const POST = async (request: NextRequest) => {
     const transactionManager = new PrismaTransactionManager(clientManager);
     const userRepository = new UserRepository(clientManager);
     const createUser = new CreateUser(userRepository, transactionManager);
-    createUser.call(body)
+    await createUser.call(body)
 
-    return NextResponse.json('post ok');
+    return NextResponse.json({ message: 'Success' }, { status: StatusCodeEnum.OK });
   } catch (e) {
-    return NextResponse.json(e.message)
+    if (e instanceof CustomError) {
+      return NextResponse.json({ error: e.message }, { status: e.statusCode });
+    } else {
+      return NextResponse.json({ error: 'Internal Server Error' }, { status: StatusCodeEnum.INTERNAL_SERVER_ERROR });
+    }
   }
-
 }

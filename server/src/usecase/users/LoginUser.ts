@@ -1,6 +1,8 @@
 import { setJwtToken } from "../../shared/JwtVerify"
 import { IUserRepository } from "../../interface/users/IUserRepository";
 import { UserComparePassword } from "../../domain/service/users/UserComparePassword"
+import { CustomError } from "../../shared/CustomError";
+import { StatusCodeEnum } from "../../shared/StatusCode";
 
 export type UserLoginRequest = {
   email: string;
@@ -12,15 +14,16 @@ export class LoginUser {
     private userRepository: IUserRepository
   ) { }
 
-  async call(request: UserLoginRequest): Promise<void> {
+  async call(request: UserLoginRequest): Promise<string> {
     const user = await this.userRepository.findByEmail(request.email);
     if (!user) {
-      throw new Error('メールアドレスのユーザーは存在しません')
+      throw new CustomError('メールアドレスのユーザーは存在しません', StatusCodeEnum.BAD_REQUEST)
     }
     const isAuth = await new UserComparePassword(this.userRepository).execute(request.email, request.password);
     if (!isAuth) {
-      throw new Error("パスワードが不正です");
+      throw new CustomError("パスワードが不正です", StatusCodeEnum.BAD_REQUEST);
     }
-    setJwtToken(user.Id.value)
+    const token = setJwtToken(user.Id.value)
+    return token
   }
 }
