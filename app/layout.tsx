@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import "./globals.css";
 import { Header } from './components/elements/header/Header';
+import { AxiosErrorHandleProvider } from './hooks/AxiosErrorHandleProvider';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <Header />
-          {children}
+          <AxiosErrorHandleProvider>
+            {children}
+          </AxiosErrorHandleProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
