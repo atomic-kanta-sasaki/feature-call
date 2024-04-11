@@ -1,12 +1,17 @@
 import { $Enums } from '@prisma/client';
+import { injectable, inject } from 'tsyringe';
 import { User } from '../../../domain/models/users/User';
 import { UserId } from '../../../domain/models/users/ValueObject/Id';
 import { Status, StatusEnum } from '../../../domain/models/users/ValueObject/Status';
 import { IUserRepository } from "../../../interface/users/IUserRepository";
 import { PrismaClientManager } from '../../prisma/PrismaClientManager';
 
+@injectable()
 export class UserRepository implements IUserRepository {
-  constructor(private clientManager: PrismaClientManager) { }
+  constructor(
+    @inject('IDataAccessClientManager')
+    private clientManager: PrismaClientManager
+  ) { }
 
   private statusEnumMapper(status: $Enums.Status): Status {
     switch (status) {

@@ -1,9 +1,12 @@
+import { injectable, inject } from 'tsyringe';
 import { UsersDTO } from "../../application/users/UserDTO";
-import { UserRepository } from "../../infrastructure/repository/users/UserRepository";
+import { IUserRepository } from "../../interface/users/IUserRepository";
 
+@injectable()
 export class GetUsers {
   constructor(
-    private userRepository: UserRepository
+    @inject('IUserRepository')
+    private userRepository: IUserRepository
   ) { }
 
   async call() {

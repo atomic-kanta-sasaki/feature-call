@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe';
 import { setJwtToken } from "../../shared/JwtVerify"
 import { IUserRepository } from "../../interface/users/IUserRepository";
 import { UserComparePassword } from "../../domain/service/users/UserComparePassword"
@@ -9,8 +10,10 @@ export type UserLoginRequest = {
   password: string;
 }
 
+@injectable()
 export class LoginUser {
   constructor(
+    @inject('IUserRepository')
     private userRepository: IUserRepository
   ) { }
 

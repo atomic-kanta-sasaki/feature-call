@@ -1,6 +1,5 @@
 import { UserId } from '../users/ValueObject/Id'
 import { Status, StatusEnum } from '../users/ValueObject/Status'
-import { PasswordHash } from './ValueObject/Password'
 
 export class User {
   private constructor(

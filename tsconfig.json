@@ -17,6 +17,8 @@
     "jsx": "preserve",
     "incremental": true,
     "target": "es5",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "plugins": [
       {
         "name": "next"

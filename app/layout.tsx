@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import "./globals.css";
 import { Header } from './components/elements/header/Header';
-import { AxiosErrorHandleProvider } from './hooks/AxiosErrorHandleProvider';
+import { AxiosErrorHandleProvider } from './components/elements/header/AxiosErrorHandleProvider';
 
 const inter = Inter({ subsets: ["latin"] });
 
