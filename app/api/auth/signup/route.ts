@@ -11,7 +11,6 @@ export const POST = async (request: NextRequest) => {
     const body: UserCreateRequest = await request.json()
     const createUser = container.resolve(CreateUser)
     await createUser.call(body)
-
     return NextResponse.json({ message: 'Success' }, { status: StatusCodeEnum.OK });
   } catch (e) {
     if (e instanceof CustomError) {

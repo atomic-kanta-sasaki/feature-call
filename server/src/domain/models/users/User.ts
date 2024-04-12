@@ -1,10 +1,11 @@
 import { UserId } from '../users/ValueObject/Id'
+import { Email } from '../users/ValueObject/Email'
 import { Status, StatusEnum } from '../users/ValueObject/Status'
 
 export class User {
   private constructor(
     private readonly id: UserId,
-    private email: string,
+    private email: Email,
     private password: string,
     private status: Status
   ) { }
@@ -14,10 +15,10 @@ export class User {
     password: string,
   ) {
 
-    return new User(new UserId(), email, password, new Status())
+    return new User(new UserId(), new Email(email), password, new Status())
   }
 
-  public changeEmail(email: string) {
+  public changeEmail(email: Email) {
     this.email = email
   }
 
@@ -27,7 +28,7 @@ export class User {
 
   static reconstruct(
     id: UserId,
-    email: string,
+    email: Email,
     password: string,
     status: Status
   ) {
@@ -38,7 +39,7 @@ export class User {
     return this.id
   }
 
-  get Email(): string {
+  get Email(): Email {
     return this.email
   }
 
