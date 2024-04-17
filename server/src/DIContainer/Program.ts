@@ -14,5 +14,3 @@ container.register('ITransactionManager', {
 container.register('IUserRepository', {
   useClass: UserRepository
 })
-
-

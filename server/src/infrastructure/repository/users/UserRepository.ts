@@ -1,3 +1,4 @@
+import { Email } from '@/server/src/domain/models/users/ValueObject/Email';
 import { $Enums } from '@prisma/client';
 import { injectable, inject } from 'tsyringe';
 import { User } from '../../../domain/models/users/User';
@@ -73,7 +74,7 @@ export class UserRepository implements IUserRepository {
 
     return User.reconstruct(
       new UserId(data.id),
-      data.email || '',
+      new Email(data.email || ''),
       data.password,
       this.statusEnumMapper(data.status)
     )
@@ -94,7 +95,7 @@ export class UserRepository implements IUserRepository {
 
     return User.reconstruct(
       new UserId(data.id),
-      data.email || '',
+      new Email(data.email || ''),
       data.password,
       this.statusEnumMapper(data.status)
     )
@@ -112,7 +113,7 @@ export class UserRepository implements IUserRepository {
     const users = data.map(user =>
       User.reconstruct(
         new UserId(user.id),
-        user.email || '',
+        new Email(user.email || ''),
         user.password,
         this.statusEnumMapper(user.status)
       )

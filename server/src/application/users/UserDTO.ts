@@ -1,8 +1,9 @@
 import { User } from "../../domain/models/users/User";
+import { Email } from "../../domain/models/users/ValueObject/Email";
 
 export class UserDTO {
   public readonly id: string;
-  public readonly email: string;
+  public readonly email: Email;
 
   constructor(user: User) {
     this.id = user.Id.value;

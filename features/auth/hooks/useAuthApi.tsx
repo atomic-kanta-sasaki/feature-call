@@ -1,11 +1,6 @@
 'use client';
-import { useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
 import { AuthStore } from '../store/AuthStore';
-
-type Props = {
-  email: string,
-  password: string
-}
 
 export type AuthApiActions = {
   postLogin: (email: string, password: string) => Promise<void>;
