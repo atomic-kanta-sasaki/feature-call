@@ -17,6 +17,9 @@ export const User = () => {
 
     fetchUser();
   }, []);
+  console.log('user');
+  console.log(user.data.name);
+  console.log('user');
 
   return (
     <div>

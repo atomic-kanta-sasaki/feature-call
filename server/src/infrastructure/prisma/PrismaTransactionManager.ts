@@ -1,12 +1,9 @@
 import { ITransactionManager } from '../../application/shared/ITransactionManager'
 import prisma from './prismaClient'
 import { PrismaClientManager } from './PrismaClientManager'
-import { injectable, inject } from 'tsyringe';
 
-@injectable()
 export class PrismaTransactionManager implements ITransactionManager {
   constructor(
-    @inject('IDataAccessClientManager')
     private clientManager: PrismaClientManager
   ) { }
 

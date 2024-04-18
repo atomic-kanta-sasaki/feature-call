@@ -3,11 +3,13 @@ import { Email } from "../../domain/models/users/ValueObject/Email";
 
 export class UserDTO {
   public readonly id: string;
-  public readonly email: Email;
+  public readonly email: string;
+  public readonly name: string;
 
   constructor(user: User) {
     this.id = user.Id.value;
-    this.email = user.Email;
+    this.email = user.Email.value;
+    this.name = user.Name
   }
 }
 

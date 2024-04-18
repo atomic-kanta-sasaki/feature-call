@@ -7,15 +7,17 @@ export class User {
     private readonly id: UserId,
     private email: Email,
     private password: string,
+    private name: string,
     private status: Status
   ) { }
 
   static create(
     email: string,
     password: string,
+    name: string
   ) {
 
-    return new User(new UserId(), new Email(email), password, new Status())
+    return new User(new UserId(), new Email(email), password, name, new Status())
   }
 
   public changeEmail(email: Email) {
@@ -30,9 +32,10 @@ export class User {
     id: UserId,
     email: Email,
     password: string,
+    name: string,
     status: Status
   ) {
-    return new User(id, email, password, status)
+    return new User(id, email, name, password, status)
   }
 
   get Id(): UserId {
@@ -49,6 +52,10 @@ export class User {
 
   get Status(): Status {
     return this.status
+  }
+
+  get Name(): string {
+    return this.name
   }
 
   public delete() {

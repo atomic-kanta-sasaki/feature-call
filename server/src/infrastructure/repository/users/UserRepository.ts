@@ -1,16 +1,13 @@
 import { Email } from '@/server/src/domain/models/users/ValueObject/Email';
 import { $Enums } from '@prisma/client';
-import { injectable, inject } from 'tsyringe';
 import { User } from '../../../domain/models/users/User';
 import { UserId } from '../../../domain/models/users/ValueObject/Id';
 import { Status, StatusEnum } from '../../../domain/models/users/ValueObject/Status';
 import { IUserRepository } from "../../../interface/users/IUserRepository";
 import { PrismaClientManager } from '../../prisma/PrismaClientManager';
 
-@injectable()
 export class UserRepository implements IUserRepository {
   constructor(
-    @inject('IDataAccessClientManager')
     private clientManager: PrismaClientManager
   ) { }
 
@@ -76,6 +73,7 @@ export class UserRepository implements IUserRepository {
       new UserId(data.id),
       new Email(data.email || ''),
       data.password,
+      data.name || '',
       this.statusEnumMapper(data.status)
     )
   }
@@ -97,6 +95,7 @@ export class UserRepository implements IUserRepository {
       new UserId(data.id),
       new Email(data.email || ''),
       data.password,
+      data.name || '',
       this.statusEnumMapper(data.status)
     )
   }
@@ -115,6 +114,7 @@ export class UserRepository implements IUserRepository {
         new UserId(user.id),
         new Email(user.email || ''),
         user.password,
+        user.name || '',
         this.statusEnumMapper(user.status)
       )
     );

@@ -5,19 +5,15 @@ import { UserDuplicationCheckDomainService } from "../../domain/service/users/Us
 import { IUserRepository } from "../../interface/users/IUserRepository";
 import { CustomError } from "../../shared/CustomError";
 import { StatusCodeEnum } from "../../shared/StatusCode";
-import { injectable, inject } from 'tsyringe';
 
 export type UserCreateRequest = {
   email: string;
   password: string;
 }
 
-@injectable()
 export class CreateUser {
   constructor(
-    @inject('IUserRepository')
     private userRepository: IUserRepository,
-    @inject('ITransactionManager')
     private transactionManager: ITransactionManager
   ) { }
 
