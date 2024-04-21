@@ -16,19 +16,19 @@ export const AxiosErrorHandleProvider: React.FC<AxiosErrorHandleProviderProps> =
     setOpen(false);
   };
 
-  const handleAxiosError = (error: AxiosError) => {
+  const handleAxiosError = (error: AxiosError<any>) => { // errorの型をAxiosError<any>に変更
     setOpen(true);
     if (error.response && error.response.status !== 500) {
-      setErrorMessage(error.response.data.error);
+      setErrorMessage(error.response.data.error as string); // error.response.data.errorをstring型としてキャスト
     } else {
       setErrorMessage('エラーが発生しました');
     }
   };
 
-  const handleNonAxiosError = (error: any) => {
+  const handleNonAxiosError = (error: any) => { // 関数名をhandleNonAxiosErrorに変更
     setOpen(true);
-    if (error.status === 401 || error.status === 403) {
-      setErrorMessage('認証エラーが発生しました');
+    if (error.response.status === 401 || error.response.status === 403) {
+      setErrorMessage(error.response.data.error as string);
     } else {
       setErrorMessage('エラーが発生しました');
     }
@@ -45,20 +45,18 @@ export const AxiosErrorHandleProvider: React.FC<AxiosErrorHandleProviderProps> =
       }
     );
 
-    const nonAxiosInterceptor = (error: any) => {
+    const nonAxiosInterceptor = (error: any): void => { // 関数の型をvoidに変更
       handleNonAxiosError(error);
-      return Promise.reject(error);
     };
 
     axios.interceptors.response.eject(axiosInterceptor); // 既存のaxiosインターセプターを削除
-    axios.interceptors.response.eject(nonAxiosInterceptor); // 既存の非axiosインターセプターを削除
 
     // 新しい非axiosインターセプターを追加
     axios.interceptors.response.use(undefined, nonAxiosInterceptor);
 
     return () => {
       axios.interceptors.response.eject(axiosInterceptor);
-      axios.interceptors.response.eject(nonAxiosInterceptor);
+      // axios.interceptors.response.eject(nonAxiosInterceptor); // nonAxiosInterceptorをejectする必要はないので削除するかコメントアウト
     };
   }, []);
 
