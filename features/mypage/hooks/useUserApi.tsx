@@ -7,13 +7,13 @@ type User = {
 }
 
 export type UserApiAction = {
-  getUser: (id: string) => Promise<User>;
+  getUser: () => Promise<User>;
 }
 
 export const useUserAction = (): UserApiAction => {
   const userStore = useMemo(() => new UserStore(), [])
-  const getUser = async (id: string) => {
-    return await userStore.getUser({ id });
+  const getUser = async () => {
+    return await userStore.getUser();
   }
 
   return {

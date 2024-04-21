@@ -4,14 +4,17 @@ import { StatusCodeEnum } from "@/server/src/shared/StatusCode";
 import { CustomError } from "@/server/src/shared/CustomError";
 import { UserRepository } from "@/server/src/infrastructure/repository/users/UserRepository";
 import { PrismaClientManager } from "@/server/src/infrastructure/prisma/PrismaClientManager";
+import { getLoginUser } from "@/server/src/shared/GetLoginUserId";
+import { GetCurrentUser } from "@/server/src/usecase/users/GetCurrentUser";
 
-export const GET = async (req: NextRequest, { params }: { params: { id: string } }) => {
+export const GET = async () => {
   try {
-    const { id } = params
     const prismaClientManager = new PrismaClientManager()
-    const userRepository = new UserRepository(prismaClientManager)
-    const getUser = new GetUser(userRepository)
-    const user = await getUser.call(id)
+    const userRepository = new UserRepository(prismaClientManager);
+    const getUser = new GetUser(userRepository);
+    const getCurrentUser = new GetCurrentUser();
+    const userId = await getCurrentUser.call();
+    const user = await getUser.call(userId)
     return NextResponse.json(user, { status: StatusCodeEnum.OK });
   } catch (e) {
     if (e instanceof CustomError) {

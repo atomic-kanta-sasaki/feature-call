@@ -7,6 +7,7 @@ import { CustomError } from "../../shared/CustomError";
 import { StatusCodeEnum } from "../../shared/StatusCode";
 
 export type UserCreateRequest = {
+  name: string;
   email: string;
   password: string;
 }
@@ -28,7 +29,8 @@ export class CreateUser {
 
       const user = User.create(
         request.email,
-        hashedPassword
+        hashedPassword,
+        request.name,
       )
 
       await this.userRepository.save(user)

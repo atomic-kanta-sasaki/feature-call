@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers'
 import { jwtVerity } from './server/src/shared/JwtVerify';
-import { CustomError } from './server/src/shared/CustomError';
 import { StatusCodeEnum } from './server/src/shared/StatusCode';
 
 export async function middleware(req: NextRequest) {
@@ -20,5 +19,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/mypage']
+  matcher: ['/api/mypage/:path*']
 };

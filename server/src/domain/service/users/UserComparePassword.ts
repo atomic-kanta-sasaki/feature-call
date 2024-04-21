@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { IUserRepository } from '@/server/src/interface/users/IUserRepository';
+import { PasswordHash } from '../../models/users/ValueObject/Password';
 
 export class UserComparePassword {
   constructor(
@@ -10,7 +11,6 @@ export class UserComparePassword {
     if (!user) {
       return false
     }
-
     const isAuth = await this.comparePasswords(password, user.Password)
     return isAuth;
   }

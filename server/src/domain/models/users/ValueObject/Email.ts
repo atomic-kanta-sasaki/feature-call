@@ -11,8 +11,6 @@ export class Email extends ValueObject<EmailType, 'Email'> {
   protected validate(value: EmailType): void {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
-      console.log(value)
-      console.log(emailRegex.test(value))
       throw new CustomError(
         `メールアドレスの形式が正しくありません`, StatusCodeEnum.BAD_REQUEST
       );

@@ -11,15 +11,12 @@ export const User = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const fetchedUser = await getUser('AOl9Qwx-yXMCkR-Pzbb_k');
+      const fetchedUser = await getUser();
       setUser(fetchedUser);
     };
 
     fetchUser();
   }, []);
-  console.log('user');
-  console.log(user.data.name);
-  console.log('user');
 
   return (
     <div>

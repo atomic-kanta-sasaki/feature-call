@@ -35,7 +35,7 @@ export class User {
     name: string,
     status: Status
   ) {
-    return new User(id, email, name, password, status)
+    return new User(id, email, password, name, status)
   }
 
   get Id(): UserId {

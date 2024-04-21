@@ -131,7 +131,7 @@ export const useSignUpForm = (): [SignUpFormState, SignUpActiveForm] => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await postSignUp(email, password)
+    await postSignUp(name, email, password)
   }
 
   return [

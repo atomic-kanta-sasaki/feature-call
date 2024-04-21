@@ -25,6 +25,7 @@ export class UserRepository implements IUserRepository {
     await client.user.create({
       data: {
         id: user.Id.value,
+        name: user.Name,
         email: user.Email.value,
         password: user.Password
       }

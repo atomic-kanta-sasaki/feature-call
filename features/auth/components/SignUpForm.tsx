@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { useSignUpForm } from '../hooks/useSignUpForm';
 import { StepContent } from './StepContent';
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = ['名前', 'メールアドレス', 'パスワード'];
 
 export const SignUpForm = () => {
   const [

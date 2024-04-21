@@ -3,6 +3,7 @@ import { IUserRepository } from "../../interface/users/IUserRepository";
 import { UserComparePassword } from "../../domain/service/users/UserComparePassword"
 import { CustomError } from "../../shared/CustomError";
 import { StatusCodeEnum } from "../../shared/StatusCode";
+import { PasswordHash } from "../../domain/models/users/ValueObject/Password";
 
 export type UserLoginRequest = {
   email: string;
