@@ -1,10 +1,9 @@
 import { GetUser } from "@/server/src/usecase/users/GetUser"
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { StatusCodeEnum } from "@/server/src/shared/StatusCode";
 import { CustomError } from "@/server/src/shared/CustomError";
 import { UserRepository } from "@/server/src/infrastructure/repository/users/UserRepository";
 import { PrismaClientManager } from "@/server/src/infrastructure/prisma/PrismaClientManager";
-import { getLoginUser } from "@/server/src/shared/GetLoginUserId";
 import { GetCurrentUser } from "@/server/src/usecase/users/GetCurrentUser";
 
 export const GET = async () => {
